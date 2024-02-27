@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      <% if (language === 'ru') { %>СТРАНИЦА АДМИНИСТРАТОРА<% } else { %>ADMIN
+      PAGE<% } %>
+    </title>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap");
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #97abbe;
+      overflow-x: hidden;
+      font-family: "M PLUS Rounded 1c", sans-serif;
+      scroll-behavior: smooth;
+      height: 100vh;
+      color: snow;
+    }
+
+    ::-webkit-scrollbar {
+      width: 0;
+    }
+    .parfume_img {
+      width: 270px;
+      height: 330px;
+      position: relative;
+      left: 3px;
+    }
+
+    .parfume_list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      background: #e0e2e4;
+      margin: 0 auto;
+      border-radius: 30px;
+      width: 80%;
+      max-width: 100%;
+      align-items: flex-end;
+    }
+
+    .parfume_list ul {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly; /* Adjust as needed */
+    }
+
+    .parfume_details {
+      max-width: 300px; /* Adjust the max-width as needed */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      margin-bottom: 20px; /* Add margin between items */
+    }
+
+    .parfume_list li {
+      display: flex;
+      flex-direction: column;
+      border-radius: 16px;
+      margin-right: 10px;
+      color: black;
+      border: 2px solid black;
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+    .action-buttons {
+      margin-top: 10px; /* Adjust the margin as needed */
+      display: flex;
+      gap: 10px; /* Adjust the gap between buttons */
+    }
+
+    .users {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      padding: 15px;
+      background: #0000008f;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .users ul {
+      list-style: none;
+      display: flex;
+      position: relative;
+    }
+    .users ul li {
+      font-size: 18px;
+      display: flex;
+      flex-direction: row;
+    }
+    .users strong {
+      display: flex;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .parfumes h2 {
+      text-align: center;
+    }
+
+    .parfumes {
+      position: relative;
+      top: 60px;
+    }
+
+    .add_parfume {
+      width: clamp(360px, 80%, 530px);
+      height: clamp(180px, 50%, 330px);
+      display: flex;
+      position: relative;
+      top: 60px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15%;
+      flex-direction: column;
+      margin: 20px auto; /* Center the section using margin and set auto for left and right margins */
+      border-radius: 16px;
+    }
+
+    .add_parfume form {
+      display: flex;
+      top: 60px;
+
+      flex-direction: column;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15%;
+      text-align: center;
+      align-self: center;
+      border-radius: 8px;
+      width: clamp(250px, 70%, 370px);
+      height: clamp(120px, 70%, 195px);
+    }
+
+    .add_parfume input {
+      width: clamp(230px, 92%, 345px);
+      margin-left: 10px;
+      height: 40px;
+      font-size: clamp(14px, 3vw, 16px);
+      color: #f2f2f2;
+      border: none;
+      background: transparent;
+      border-bottom: 2px solid #f2f2f2;
+      outline: none;
+    }
+
+    .add_parfume input::placeholder {
+      color: #f2f2f2;
+      font-family: "Kode Mono", monospace;
+    }
+
+    .action-buttons button {
+      width: 100px;
+      height: 30px;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      align-self: center;
+      background: #bebebe;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 20px;
+      margin-left: 5px;
+      display: flex;
+    }
+  </style>
+  <body>
+    <section class="users">
+      <h2>
+        <% if (language === 'ru') { %>ПОЛЬЗОВАТЕЛИ<% } else { %>USERS<% } %>
+      </h2>
+      <ul>
+        <% for (const user of users) { %>
+        <li>
+          <strong
+            ><% if (language === 'ru') { %>ИМЯ:<% } else { %>NAME:<% }
+            %>&nbsp;</strong
+          >
+          <%= user.username %>
+          <strong
+            ><% if (language === 'ru') { %>ПОЧТА:<% } else { %>EMAIL:<% }
+            %>&nbsp;</strong
+          >
+          <%= user.email %>
+          <strong
+            ><% if (language === 'ru') { %>РОЛЬ:<% } else { %>ROLE:<% }
+            %>&nbsp;</strong
+          >
+          <%=user.role %> <% if (user.role !== 'admin') { %>
+          <button onclick="deleteUser('<%= user._id %>')">
+            <% if (language === 'ru') { %>УДАЛИТЬ<% } else { %>DELETE<% } %>
+          </button>
+          <% } %>
+        </li>
+        <% } %>
+      </ul>
+    </section>
+    <section class="parfumes">
+      <h2>
+        <% if (language === 'ru') { %>ПАРФЮМЫ В НАЛИЧИИ<% } else { %>ADDED
+        PARFUMES<% } %>
+      </h2>
+      <div class="parfume_list">
+        <ul>
+          <% for (const parfume of parfumes) { %>
+          <li>
+            <img
+              class="parfume_img"
+              src="/uploads/<%= parfume.image %>"
+              alt="<%= parfume.name %> Image"
+              onerror="console.error('Error loading image:', '<%= parfume.image %>')"
+            />
+            <div class="parfume_details">
+              <strong>Name:</strong> <%= parfume.name %>
+              <strong>Genre:</strong> <%= parfume.genre %>
+              <strong>Price:</strong> <%= parfume.price %>$
+              <div class="action-buttons">
+                <button onclick="updatePerfume('<%= parfume.id %>')">
+                  <% if (language === 'ru') { %>ИЗМЕНИТЬ<% } else { %>UPDATE<% }
+                  %>
+                </button>
+                <button onclick="deleteParfume('<%= parfume._id %>')">
+                  <% if (language === 'ru') { %>УДАЛИТЬ<% } else { %>DELETE<% }
+                  %>
+                </button>
+              </div>
+            </div>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </section>
+    <section class="add_parfume">
+      <h2>
+        <% if (language === 'ru') { %>ДОБАВИТЬ НОВЫЙ ПАРФЮМ<% } else { %>ADD NEW
+        PARFUM<% } %>
+      </h2>
+      <form
+        action="/admin/addparfume"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label for="name"
+          ><% if (language === 'ru') { %>НАЗВАНИЕ ПАРФЮМА<% } else { %>NAME<% }
+          %></label
+        >
+        <input type="text" id="name" name="name" required />
+        <br />
+
+        <label for="genre">MALE | FEMALE | HOME</label>
+        <input type="text" id="genre" name="genre" required />
+        <br />
+
+        <label for="price"
+          ><% if (language === 'ru') { %>ЦЕНА<% } else { %>PRICE<% } %></label
+        >
+        <input type="number" id="price" name="price" required />
+        <br />
+
+        <label for="image"
+          ><% if (language === 'ru') { %>ФОТО<% } else { %>IMAGE<% } %></label
+        >
+        <input type="file" id="image" name="image" accept=".png" required />
+        <br />
+        <button type="submit">
+          <% if (language === 'ru') { %>ДОБАВИТЬ<% } else { %>ADD PARFUME<% } %>
+        </button>
+      </form>
+    </section>
+
+    <script>
+      function deleteParfume(parfumeId) {
+        fetch(`/deleteparfume/${parfumeId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              window.location.reload();
+            } else {
+              console.error("Error deleting parfume:", response.statusText);
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting parfume:", error.message);
+          });
+      }
+
+      function deleteUser(userId) {
+        fetch(`/deleteuser/${userId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              window.location.reload();
+            } else {
+              console.error("Error deleting user:", response.statusText);
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting user:", error.message);
+          });
+      }
+    </script>
+  </body>
+</html>

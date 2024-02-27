@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration</title>
+    <style>
+            @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        background: linear-gradient(75deg, rgb(352, 81, 94), rgb(48, 131, 147));
+        height: 100vh;
+      }
+      .form_container {
+        width: clamp(360px, 80%, 530px);
+        height: clamp(180px, 50%, 330px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 20px;
+        border-radius: 16px;
+      }
+
+      .form_container form {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        border-radius: 8px;
+        padding: 10px;
+        width: clamp(250px, 70%, 370px);
+        height: clamp(120px, 70%, 195px);
+      }
+
+      .form_container input {
+        width: clamp(215px, 92%, 345px);
+        margin-left: 10px;
+        height: 40px;
+        font-size: clamp(14px, 3vw, 16px);
+        color: #f2f2f2;
+        border: none;
+        background: transparent;
+        border-bottom: 2px solid #f2f2f2;
+        outline: none;
+      }
+      .form_container input::placeholder {
+        color: #f2f2f2;
+      }
+      #btn {
+        background: #f2f2f2;
+        color: black;
+        font-size: clamp(14px, 3vw, 16px);
+        width: 70%;
+        height: 30px;
+        margin: 0 auto;
+        margin-top: 20px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        transition: 0.3s ease-out;
+      }
+      #btn:hover {
+        transform: scale(0.96);
+      }
+
+      .account {
+        text-decoration: none;
+        color: #f2f2f2;
+        font-size: clamp(16px, 4vw, 18px);
+        font-family: "Kode Mono", monospace;
+        position: relative;
+        top: 10%;
+        transition: 0.3s ease-in-out;
+      }
+      .account:hover {
+        color: #f2f2f2;
+        text-decoration: underline;
+      }
+
+      .lbw img {
+        width: 450px;
+        height: 400px;
+        position: fixed;
+        left: 0;
+        object-fit: contain;
+      }
+      .lbm img {
+        width: 450px;
+        height: 400px;
+        position: fixed;
+        right: 0;
+        object-fit: contain;
+      }
+
+      #generatedPassword{
+        color: snow;
+        position: absolute;
+        bottom: 20px;
+        text-align: center;
+        align-items: center;
+        display: flex;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lbw">
+      <img src="/img/lbw.png" alt="" />
+    </div>
+    <div class="lbm">
+      <img src="/img/lbm.png" alt="" />
+    </div>
+    <div class="form_container">
+      <form action="/regist" method="post">
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="USERNAME"
+          required
+        /><br />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="EMAIL"
+          required
+        /><br />
+        <input type="text" id="role" name="role" placeholder="ROLE" /><br />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="PASSWORD"
+          required
+        /><br />
+        <button type="button" id="btn" onclick="generatePassword()">
+          Generate Password</button
+        >
+        <p id="generatedPassword"></p>
+        <input type="submit" value="CREATE ACCOUNT" id="btn" class="submit" />
+      </form>
+    </div>
+    <a href="/login" class="account">Already have account?</a>
+
+    <script>
+function generatePassword() {
+        fetchPassword();
+      }
+
+      async function fetchPassword() {
+        try {
+          const response = await fetch('/generatePassword');
+          if (response.ok) {
+            const password = await response.text();
+            document.getElementById('generatedPassword').innerText = password;
+          } else {
+            console.error('Error fetching generated password');
+          }
+        } catch (error) {
+          console.error('Error fetching generated password:', error);
+        }
+      }
+    </script>
+  </body>
+</html>

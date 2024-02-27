@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "M PLUS Rounded 1c", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f2f2f2;
+        overflow-x: hidden;
+      }
+
+      ::-webkit-scrollbar {
+        width: 0;
+      }
+
+      header {
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 500px;
+      }
+
+      header img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .header_text {
+        position: absolute;
+        color: #f2f2f2;
+        top: 50%;
+        left: 75%;
+        transform: translate(-50%, -50%);
+        font-size: 64px;
+      }
+
+      .menu_container {
+        width: 98%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 10px;
+        border-bottom: 1px solid black;
+        background: #f2f2f2;
+        padding: 20px;
+        justify-content: space-around;
+      }
+
+      .her button {
+        width: 240px;
+        height: 85px;
+        margin-left: 250px;
+        border-radius: 30px;
+        background: #f2f2f2;
+        color: black;
+        border: 1px solid black;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background 1s ease-in-out;
+      }
+
+      .her button:hover {
+        background: url("/img/her.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        color: black;
+      }
+
+      .him button {
+        width: 240px;
+        margin-left: 250px;
+        height: 85px;
+        border-radius: 30px;
+        background: #f2f2f2;
+        color: black;
+        border: 1px solid black;
+        font-size: 18px;
+        font-weight: 600;
+        transition: background 1s ease-in-out;
+      }
+
+      .him button:hover {
+        background: url("/img/him.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        color: black;
+      }
+
+      .menu_container button:hover {
+        color: black;
+      }
+
+      .main-menu {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .parfume-block-YS,
+      .parfume-block-TB,
+      .parfume-block-LB {
+        position: relative;
+        height: 600px;
+        display: grid;
+        grid-template-rows: 410px 1fr 1fr;
+        border: 1px solid black;
+        text-align: center;
+        justify-content: center;
+        padding: 10px;
+      }
+
+      .parfume-block-YS img,
+      .parfume-block-TB img,
+      .parfume-block-LB img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .sale {
+        text-decoration: line-through;
+        font-size: 18px;
+        color: rgba(51, 51, 51, 0.723);
+      }
+
+      .Pname {
+        font-size: 24px;
+      }
+
+      .price {
+        font-size: 24px;
+      }
+
+      @media (max-width: 768px) {
+        .menu_container {
+          grid-template-columns: 1fr;
+        }
+
+        .main-menu {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .username {
+        position: absolute;
+        right: 110px;
+        top: 40px;
+        color: #f2f2f2;
+      }
+
+      .carousel-container {
+        position: relative;
+        top: 40px;
+        width: 50%;
+        margin: auto;
+        overflow: hidden;
+      }
+
+      .carousel {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        max-width: 100%;
+      }
+
+      .slide {
+        flex: 0 0 80%;
+        box-sizing: border-box;
+        text-align: center;
+        border: 1px solid black;
+        color: black;
+      }
+
+      .slide img {
+        width: 100%;
+        height: auto;
+      }
+
+      @media (max-width: 768px) {
+        .carousel-container {
+          width: 100%;
+        }
+
+        .slide {
+          flex: 0 0 80%;
+        }
+      }
+      .prev-btn,
+      .next-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .prev-btn {
+        left: 10px;
+      }
+
+      .next-btn {
+        right: 10px;
+      }
+
+      .time {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 30px;
+        color: snow;
+        font-weight: 600;
+        font-size: 18px;
+        text-transform: uppercase;
+        left: 50%;
+      }
+    </style>
+    <title>
+      <% if (language === 'ru') { %>ГЛАВНАЯ СТРАНИЦЫ<% } else { %>MAIN PAGE<% }
+      %>
+    </title>
+  </head>
+  <body>
+    <header>
+      <img src="/img/slider1.jpg" alt="" />
+      <h2 class="header_text">
+        <% if (language === 'ru') { %>ПАРФЮМЕРИЯ<% } else { %>PERFUMERY<% } %>
+      </h2>
+    </header>
+    <h1 class="username">
+      <% if (language === 'ru') { %>ПРИВЕТ<% } else { %>HELLO<% } %>&nbsp;<%=
+      username %>
+    </h1>
+    <section class="menu_container">
+      <div class="her">
+        <button class="btnHer" onclick="window.location.href = 'forher'">
+          <% if (language === 'ru') { %>ДЛЯ НЕЕ<% } else { %>FOR HER<% } %>
+        </button>
+      </div>
+      <div class="him">
+        <button class="btnHim" onclick="window.location.href = 'forhim'">
+          <% if (language === 'ru') { %>ДЛЯ НЕГО<% } else { %>FOR HIM<% } %>
+        </button>
+      </div>
+    </section>
+    <section class="main-menu">
+      <div class="parfume-block-YS">
+        <img src="/img/YS.png" alt="" />
+        <p class="Pname">YVES SAINT LAURENT</p>
+        <p class="sale">174$</p>
+        <p class="price">120$</p>
+      </div>
+      <div class="parfume-block-TB">
+        <img src="/img/toyBoy.png" alt="" />
+        <p class="Pname">MOSCHINO toy boy</p>
+        <p class="sale">174$</p>
+        <p class="price">120$</p>
+      </div>
+      <div class="parfume-block-LB">
+        <img src="/img/lebau.png" alt="" />
+        <p class="Pname">JEAN PAUL GAULTIER le beau</p>
+        <p class="sale">90$</p>
+        <p class="price">82$</p>
+      </div>
+    </section>
+    <section class="carousel-container">
+      <div class="carousel">
+        <div class="slide">
+          <img src="/img/vrf.png" alt="" />
+          <p class="Pname">VERSACE eros flame</p>
+          <p class="sale">70$</p>
+          <p class="price">47$</p>
+        </div>
+        <div class="slide">
+          <img src="/img/valen.png" alt="" />
+          <p class="Pname">VALENTINO born in roma uomo</p>
+          <p class="sale">135$</p>
+          <p class="price">95$</p>
+        </div>
+        <div class="slide">
+          <img src="/img/tfch.png" alt="" />
+          <p class="Pname">TOM FORD lost cherry</p>
+          <p class="sale">317$</p>
+          <p class="price">270$</p>
+        </div>
+      </div>
+      <button class="prev-btn">&lt;</button>
+      <button class="next-btn">&gt;</button>
+    </section>
+
+    <section class="time">
+      <p><%= worldTime.datetime.substring(11, 16) %></p>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const carousel = document.querySelector(".carousel");
+        const prevBtn = document.querySelector(".prev-btn");
+        const nextBtn = document.querySelector(".next-btn");
+
+        let currentIndex = 0;
+
+        function showSlide(index) {
+          const slideWidth = carousel.clientWidth;
+          carousel.style.transform = `translateX(${-index * slideWidth}px)`;
+        }
+
+        function showNextSlide() {
+          currentIndex = (currentIndex + 1) % 3;
+          showSlide(currentIndex);
+        }
+
+        function showPrevSlide() {
+          currentIndex = (currentIndex - 1 + 3) % 3;
+          showSlide(currentIndex);
+        }
+
+        nextBtn.addEventListener("click", showNextSlide);
+        prevBtn.addEventListener("click", showPrevSlide);
+      });
+    </script>
+  </body>
+</html>

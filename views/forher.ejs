@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><% if (language === 'ru') { %>ДЛЯ НЕЕ<% } else {
+        %>FOR HER<% } %></title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #ffdfdf;
+        height: 100vh;
+        overflow-x: hidden;
+      }
+      ::-webkit-scrollbar {
+        width: 0;
+      }
+      header {
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 500px;
+      }
+
+      header img {
+        width: 100%;
+        filter: brightness(40%);
+        height: 100%;
+        object-fit:cover;
+      }
+
+      .header_text {
+        position: absolute;
+        color: #f2f2f2;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 64px;
+      }
+      .parfume_img {
+        width: 270px;
+        height: 330px;
+        filter: brightness(90%);
+        position: relative;
+        left: 3px;
+      }
+
+      .parfume_list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        background: #ffcbcb;
+        margin: 0 auto;
+        border-radius: 30px;
+        width: 80%;
+        max-width: 100%;
+        align-items: flex-end;
+      }
+
+      .parfume_list ul {
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly; /* Adjust as needed */
+      }
+
+      .parfume_details {
+        max-width: 300px; /* Adjust the max-width as needed */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 20px; /* Add margin between items */
+      }
+
+      .parfume_list li {
+        display: flex;
+        flex-direction: column;
+        border-radius: 16px;
+        margin-right: 10px;
+        color: black;
+        border: 2px solid black;
+        margin-left: 20px;
+        margin-bottom: 20px;
+      }
+      .parfumes {
+        position: relative;
+        top: 60px;
+      }
+      .action-buttons button{
+        width:  100px;
+        height: 30px;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        background: #fffbfb;
+        border: none;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 20px;
+        margin-left: 5px;
+        display: flex;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <header>
+    <img src="/img/calvin.jpg" alt="" />
+    <h2 class="header_text"><% if (language === 'ru') { %>ДЛЯ НЕЕ<% } else {
+        %>FOR HER<% } %></h2>
+  </header>
+  <body>
+    <section class="parfumes">
+      <div class="parfume_list">
+        <ul>
+          <% for (const parfume of parfumes) { %>
+          <li>
+            <img
+              class="parfume_img"
+              src="/uploads/<%= parfume.image %>"
+              alt="<%= parfume.name %> Image"
+              onerror="console.error('Error loading image:', '<%= parfume.image %>')"
+            />
+            <div class="parfume_details">
+              <strong>Name:</strong> <%= parfume.name %>
+              <strong>Genre:</strong> <%= parfume.genre %>
+              <strong>Price:</strong> <%= parfume.price %>
+              <div class="action-buttons">
+                <button>
+                  BUY
+                </button>
+            </div>
+            </div>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </section>
+  </body>
+</html>
